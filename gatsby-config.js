@@ -103,7 +103,7 @@ module.exports = {
                 allWordpressPost(
                   limit: 1000,
                   sort: { order: DESC, fields: [date] },
-                  filter: { status: { ne: "draft" } }
+                  filter: { status: { eq: "publish" } }
                 ) {
                   edges {
                     node {

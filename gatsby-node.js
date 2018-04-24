@@ -20,6 +20,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           {
             allWordpressPost(
               sort: { fields: [date], order: DESC }
+              filter: { status: { eq: "publish" } }
             ) {
               edges {
                 node {
