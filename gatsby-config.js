@@ -54,7 +54,6 @@ module.exports = {
         //trackingId: `ADD YOUR TRACKING ID HERE`,
       },
     },
-    `gatsby-plugin-feed`,
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-plugin-typography`,
@@ -70,6 +69,57 @@ module.exports = {
         hostingWPCOM: false,
         useACF: true,
         excludedRoutes: ['/*/*/comments'],
+      },
+    },
+    {
+      resolve: `gatsby-plugin-feed`,
+      options: {
+        query: `
+          {
+            site {
+              siteMetadata {
+                title
+                description
+                siteUrl
+                site_url: siteUrl
+              }
+            }
+          }
+        `,
+        feeds: [
+          {
+            serialize: ({ query: { site, allWordpressPost } }) => {
+              return allWordpressPost.edges.map(edge => {
+                return Object.assign({}, edge.node.frontmatter, {
+                  description: edge.node.excerpt,
+                  url: site.siteMetadata.siteUrl + edge.node.slug,
+                  guid: site.siteMetadata.siteUrl + edge.node.slug,
+                  custom_elements: [{ "content:encoded": edge.node.content }],
+                });
+              });
+            },
+            query: `
+              {
+                allWordpressPost(
+                  limit: 1000,
+                  sort: { order: DESC, fields: [date] },
+                  filter: { status: { ne: "draft" } }
+                ) {
+                  edges {
+                    node {
+                      excerpt
+                      content
+                      slug
+                      title
+                      date
+                    }
+                  }
+                }
+              }
+            `,
+            output: "/rss.xml",
+          },
+        ],
       },
     },
   ],
