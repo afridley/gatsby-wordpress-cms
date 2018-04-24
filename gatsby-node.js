@@ -18,7 +18,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
       graphql(
         `
           {
-            allWordpressPost {
+            allWordpressPost(
+              sort: { fields: [date], order: DESC }
+            ) {
               edges {
                 node {
                   id
