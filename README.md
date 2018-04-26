@@ -1,4 +1,4 @@
-# Wordpress Gutenberg → Gatsby MVP
+# Wordpress Gutenberg + Gatsby MVP
 
 Test site built by Gatsby using [gatsby-source-wordpress](https://github.com/gatsbyjs/gatsby/tree/master/packages/gatsby-source-wordpress). Content from a headless Wordpress install, using [Gutenberg](https://wordpress.org/gutenberg/).
 
