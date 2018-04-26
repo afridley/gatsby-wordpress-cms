@@ -1,6 +1,7 @@
-import Link from 'gatsby-link';
-import React from 'react';
-import { rhythm } from '../utils/typography';
+import Link from 'gatsby-link'
+import kebabCase from 'lodash/kebabCase'
+import React from 'react'
+import { rhythm } from '../utils/typography'
 
 class PostListing extends React.Component {
   getPostList() {
@@ -12,10 +13,14 @@ class PostListing extends React.Component {
         title: postEdge.node.title,
         date: postEdge.node.date,
         excerpt: postEdge.node.excerpt,
+        categories: postEdge.node.categories,
         mainCategory: postEdge.node.categories[0].name,
-        featuredImageUrl: postEdge.node.featured_media !== null ? postEdge.node.featured_media.source_url: '',
+        featuredImageUrl:
+          postEdge.node.featured_media !== null
+            ? postEdge.node.featured_media.source_url
+            : '',
         authorName: postEdge.node.author.name,
-        authorAvatarUrl: postEdge.node.author.avatar_urls.wordpress_96
+        authorAvatarUrl: postEdge.node.author.avatar_urls.wordpress_96,
       })
     })
     return postList
@@ -30,10 +35,14 @@ class PostListing extends React.Component {
           <div key={post.id}>
             <h3
               style={{
-                marginBottom: rhythm(1 / 4),
+                marginBottom: rhythm(1 / 2),
               }}
             >
-              <Link style={{ boxShadow: 'none' }} to={post.path} key={post.title}>
+              <Link
+                style={{ boxShadow: 'none' }}
+                to={post.path}
+                key={post.title}
+              >
                 {post.title}
               </Link>
             </h3>
@@ -42,13 +51,29 @@ class PostListing extends React.Component {
                 className="featured-image"
                 src={post.featuredImageUrl}
                 alt=""
+                style={{
+                  marginBottom: rhythm(0),
+                }}
               />
             ) : (
               <div />
             )}
-            <small>
-              {post.date} in {post.mainCategory} by {post.authorName}
-            </small>
+            <p
+              style={{
+                marginBottom: rhythm(1 / 2),
+              }}
+            >
+              <small>
+                {post.date} in{' '}
+                {post.categories.map((category, i) => (
+                  <span key={i}>
+                    {!!i && ', '}
+                    <Link to={`/category/${kebabCase(category.name)}`}>{category.name}</Link>
+                  </span>
+                ))}
+                <span> by {post.authorName}</span>
+              </small>
+            </p>
             <p dangerouslySetInnerHTML={{ __html: post.excerpt }} />
           </div>
         ))}
