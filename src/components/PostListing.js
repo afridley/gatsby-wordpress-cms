@@ -13,10 +13,7 @@ class PostListing extends React.Component {
         date: postEdge.node.date,
         excerpt: postEdge.node.excerpt,
         mainCategory: postEdge.node.categories[0].name,
-        featuredImageUrl:
-          postEdge.node.featured_media !== null
-            ? postEdge.node.featured_media.source_url
-            : '',
+        featuredImageUrl: postEdge.node.featured_media !== null ? postEdge.node.featured_media.source_url: '',
         authorName: postEdge.node.author.name,
         authorAvatarUrl: postEdge.node.author.avatar_urls.wordpress_96
       })

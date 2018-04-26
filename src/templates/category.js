@@ -1,22 +1,22 @@
-import Link from 'gatsby-link';
-import get from 'lodash/get';
-import React from 'react';
-import Helmet from 'react-helmet';
-import config from '../../config/SiteConfig';
-import { rhythm } from '../utils/typography';
-import Pagination from '../components/Pagination';
-import PostListing from '../components/PostListing';
+import Link from 'gatsby-link'
+import get from 'lodash/get'
+import React from 'react'
+import Helmet from 'react-helmet'
+import config from '../../config/SiteConfig'
+import { rhythm } from '../utils/typography'
+import Pagination from '../components/Pagination'
+import PostListing from '../components/PostListing'
 
-const Categories = ({ pathContext, data }) => {
+const Categories = ({ data, pathContext }) => {
   const { category, nodes, page, prev, next, pages, total, limit } = pathContext
-  const { edges, totalCount } = data.allWordpressPost
+  const { totalCount } = data.allWordpressPost
   const categoryHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} filed in "${category}"`
 
   return (
     <div>
       <Helmet title={`${category} | ${config.title}`} />
       <h1>{categoryHeader}</h1>
-      <PostListing postEdges={edges} />
+      <PostListing postEdges={nodes} />
       <Pagination page={page} pages={pages} prev={prev} next={next} />
     </div>
   )

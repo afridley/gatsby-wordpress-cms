@@ -31,6 +31,17 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                   excerpt
                   status
                   template
+                  featured_media {
+                    source_url
+                  }
+                  author {
+                    name
+                    avatar_urls {
+                      wordpress_24
+                      wordpress_48
+                      wordpress_96
+                    }
+                  }
                   categories {
                     name
                   }
@@ -50,18 +61,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
 
         const posts = result.data.allWordpressPost.edges
 
-        // Create paginated index page
-        createPaginationPages({
-          createPage: createPage,
-          edges: posts,
-          component: indexPage,
-          limit: 10,
-        })
-
         // Create post pages
         _.each(posts, (post, index) => {
-          const previous =
-            index === posts.length - 1 ? false : posts[index + 1].node
+          const previous = index === posts.length - 1 ? false : posts[index + 1].node
           const next = index === 0 ? false : posts[index - 1].node
 
           createPage({
@@ -74,6 +76,14 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
               next,
             },
           })
+        })
+
+        // Create paginated index page
+        createPaginationPages({
+          createPage: createPage,
+          edges: posts,
+          component: indexPage,
+          limit: 5,
         })
 
         const tagSet = new Set()
@@ -93,17 +103,15 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           // Assoicate posts to categories
           edge.node.categories.forEach(category => {
             categorySet.add(category.name)
-            const array = categoryMap.has(category.name)
-              ? categoryMap.get(category.name)
-              : []
+            const array = categoryMap.has(category.name) ? categoryMap.get(category.name) : []
             array.push(edge)
             categoryMap.set(category.name, array)
           })
 
           // Create paginated tag pages
+          const tagFormatter = tag => route => `/tag/${_.kebabCase(tag)}/${route !== 1 ? route : ''}`
           const tagList = Array.from(tagSet)
           tagList.forEach(tag => {
-            const tagFormatter = tag => route => `/tag/${_.kebabCase(tag)}/${route !== 1 ? route : ''}`
             createPaginationPages({
               createPage,
               edges: tagMap.get(tag),
@@ -117,9 +125,9 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           })
 
           // Create paginated category pages
+          const categoryFormatter = category => route => `/category/${_.kebabCase(category)}/${route !== 1 ? route : ''}`
           const categoryList = Array.from(categorySet)
           categoryList.forEach(category => {
-            const categoryFormatter = category => route => `/category/${_.kebabCase(category)}/${route !== 1 ? route : ''}`
             createPaginationPages({
               createPage,
               edges: categoryMap.get(category),
@@ -132,7 +140,6 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
             })
           })
         })
-        resolve()
       })
     )
   })

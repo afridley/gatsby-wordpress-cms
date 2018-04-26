@@ -9,14 +9,14 @@ import PostListing from '../components/PostListing';
 
 const Tags = ({ pathContext, data }) => {
   const { tag, nodes, page, prev, next, pages, total, limit } = pathContext
-  const { edges, totalCount } = data.allWordpressPost
+  const { totalCount } = data.allWordpressPost
   const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} filed in "${tag}"`
 
   return (
     <div>
       <Helmet title={`${tag} | ${config.title}`} />
       <h1>{tagHeader}</h1>
-      <PostListing postEdges={edges} />
+      <PostListing postEdges={nodes} />
       <Pagination page={page} pages={pages} prev={prev} next={next} />
     </div>
   )
