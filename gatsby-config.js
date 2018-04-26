@@ -94,9 +94,9 @@ module.exports = {
                   description: edge.node.excerpt,
                   url: site.siteMetadata.siteUrl + edge.node.slug,
                   guid: site.siteMetadata.siteUrl + edge.node.slug,
-                  custom_elements: [{ "content:encoded": edge.node.content }],
-                });
-              });
+                  custom_elements: [{ 'content:encoded': edge.node.content }],
+                })
+              })
             },
             query: `
               {
@@ -117,7 +117,7 @@ module.exports = {
                 }
               }
             `,
-            output: "/rss.xml",
+            output: '/rss.xml',
           },
         ],
       },
