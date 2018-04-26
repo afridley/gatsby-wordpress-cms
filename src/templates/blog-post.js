@@ -1,9 +1,10 @@
-import Link from 'gatsby-link';
-import get from 'lodash/get';
-import React, { Component } from 'react';
-import Helmet from 'react-helmet';
-import Bio from '../components/Bio';
-import { rhythm, scale } from '../utils/typography';
+import Link from 'gatsby-link'
+import get from 'lodash/get'
+import React, { Component } from 'react'
+import Helmet from 'react-helmet'
+import Bio from '../components/Bio'
+import PostTags from '../components/PostTags'
+import { rhythm, scale } from '../utils/typography'
 
 class BlogPostTemplate extends Component {
   render() {
@@ -26,6 +27,10 @@ class BlogPostTemplate extends Component {
           {post.date}
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
+        <div>
+          <h4>More Like This:</h4>
+          <PostTags tags={post.tags} />
+        </div>
         <hr
           style={{
             marginBottom: rhythm(1),
@@ -79,8 +84,25 @@ export const pageQuery = graphql`
       }
     }
     wordpressPost(id: { eq: $id }) {
+      featured_media {
+        source_url
+      }
+      author {
+        name
+        avatar_urls {
+          wordpress_24
+          wordpress_48
+          wordpress_96
+        }
+      }
       title
       content
+      categories {
+        name
+      }
+      tags {
+        name
+      }
       date(formatString: "MMMM DD, YYYY")
     }
   }

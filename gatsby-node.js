@@ -60,9 +60,19 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
         }
 
         const posts = result.data.allWordpressPost.edges
+        const tags = []
+        const categories = []
 
         // Create post pages
         _.each(posts, (post, index) => {
+          // Grab all the tags and categories for later use
+          post.node.tags.forEach(tag => {
+            tags.push(tag.name)
+          })
+          post.node.categories.forEach(category => {
+            categories.push(category.name)
+          })
+          // Setup previous and next post navigation
           const previous = index === posts.length - 1 ? false : posts[index + 1].node
           const next = index === 0 ? false : posts[index - 1].node
 
