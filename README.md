@@ -8,6 +8,7 @@ Test site built by Gatsby using [gatsby-source-wordpress](https://github.com/gat
 - [x] Featured images
 - [ ] Comments
 - [ ] SEO (leverage Yoast plugin?) - OpenGraph, Twitter Cards, etc.
+- [ ] Trigger Netlify build on Wordpress content edits
 
 ## Development
 
