@@ -2,6 +2,7 @@ import Link from 'gatsby-link'
 import kebabCase from 'lodash/kebabCase'
 import React from 'react'
 import { rhythm } from '../utils/typography'
+import Img from 'gatsby-image'
 
 class PostListing extends React.Component {
   getPostList() {
@@ -15,9 +16,9 @@ class PostListing extends React.Component {
         excerpt: postEdge.node.excerpt,
         categories: postEdge.node.categories,
         mainCategory: postEdge.node.categories[0].name,
-        featuredImageUrl:
+        featuredImage:
           postEdge.node.featured_media !== null
-            ? postEdge.node.featured_media.source_url
+            ? postEdge.node.featured_media.localFile
             : '',
         authorName: postEdge.node.author.name,
         authorAvatarUrl: postEdge.node.author.avatar_urls.wordpress_96,
@@ -46,14 +47,10 @@ class PostListing extends React.Component {
                 {post.title}
               </Link>
             </h3>
-            {post.featuredImageUrl !== '' ? (
-              <img
-                className="featured-image"
-                src={post.featuredImageUrl}
-                alt=""
-                style={{
-                  marginBottom: rhythm(0),
-                }}
+            {post.featuredImage !== '' ? (
+              <Img
+                sizes={post.featuredImage.childImageSharp.sizes}
+                style={{ marginBottom: rhythm(1) }}
               />
             ) : (
               <div />
@@ -68,7 +65,9 @@ class PostListing extends React.Component {
                 {post.categories.map((category, i) => (
                   <span key={i}>
                     {!!i && ', '}
-                    <Link to={`/category/${kebabCase(category.name)}`}>{category.name}</Link>
+                    <Link to={`/category/${kebabCase(category.name)}`}>
+                      {category.name}
+                    </Link>
                   </span>
                 ))}
                 <span> by {post.authorName}</span>

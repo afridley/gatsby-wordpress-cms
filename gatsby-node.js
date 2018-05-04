@@ -33,6 +33,17 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                   template
                   featured_media {
                     source_url
+                    localFile {
+                      childImageSharp {
+                        sizes(maxWidth: 750, quality: 90) {
+                          base64
+                          aspectRatio
+                          src
+                          srcSet
+                          sizes
+                        }
+                      }
+                    }
                   }
                   author {
                     name
