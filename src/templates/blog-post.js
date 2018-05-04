@@ -5,6 +5,7 @@ import Helmet from 'react-helmet'
 import Bio from '../components/Bio'
 import PostTags from '../components/PostTags'
 import { rhythm, scale } from '../utils/typography'
+import Img from 'gatsby-image'
 
 class BlogPostTemplate extends Component {
   render() {
@@ -16,6 +17,14 @@ class BlogPostTemplate extends Component {
       <div>
         <Helmet title={`${post.title} | ${siteTitle}`} />
         <h1 dangerouslySetInnerHTML={{ __html: post.title }} />
+        {post.featured_media.source_url !== null ? (
+          <Img
+            sizes={post.featured_media.localFile.childImageSharp.sizes}
+            style={{ marginBottom: rhythm(1) }}
+          />
+        ) : (
+          <div />
+        )}
         <p
           style={{
             ...scale(-1 / 5),
@@ -86,6 +95,13 @@ export const pageQuery = graphql`
     wordpressPost(id: { eq: $id }) {
       featured_media {
         source_url
+        localFile {
+          childImageSharp {
+            sizes(maxWidth: 750, quality: 90) {
+              ...GatsbyImageSharpSizes
+            }
+          }
+        }
       }
       author {
         name
