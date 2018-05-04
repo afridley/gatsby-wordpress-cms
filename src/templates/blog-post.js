@@ -17,7 +17,7 @@ class BlogPostTemplate extends Component {
       <div>
         <Helmet title={`${post.title} | ${siteTitle}`} />
         <h1 dangerouslySetInnerHTML={{ __html: post.title }} />
-        {post.featured_media.source_url !== null ? (
+        {post.featured_media !== null ? (
           <Img
             sizes={post.featured_media.localFile.childImageSharp.sizes}
             style={{ marginBottom: rhythm(1) }}
