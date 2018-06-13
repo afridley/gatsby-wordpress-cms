@@ -10,7 +10,7 @@ Headless Wordpress uses [postlight-headless-wp theme](https://github.com/postlig
 - [x] Featured images
 - [ ] Comments
 - [ ] SEO (leverage Yoast plugin?) - OpenGraph, Twitter Cards, etc.
-- [ ] Trigger Netlify build on Wordpress content edits
+- [x] Trigger Netlify build on Wordpress content edits
 
 ## Development
 
