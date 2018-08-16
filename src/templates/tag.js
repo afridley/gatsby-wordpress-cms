@@ -1,24 +1,29 @@
-import Link from 'gatsby-link';
-import get from 'lodash/get';
-import React from 'react';
-import Helmet from 'react-helmet';
-import config from '../../config/SiteConfig';
-import { rhythm } from '../utils/typography';
-import Pagination from '../components/Pagination';
-import PostListing from '../components/PostListing';
+import { Link, graphql } from 'gatsby'
+import get from 'lodash/get'
+import React from 'react'
+import Helmet from 'react-helmet'
+import Header from '../components/Header'
+import Layout from '../components/Layout'
+import config from '../../config/SiteConfig'
+import { rhythm } from '../utils/typography'
+import Pagination from '../components/Pagination'
+import PostListing from '../components/PostListing'
 
-const Tags = ({ pathContext, data }) => {
-  const { tag, nodes, page, prev, next, pages, total, limit } = pathContext
+const Tags = ({ pageContext, data }) => {
+  const { tag, nodes, page, prev, next, pages, total, limit } = pageContext
   const { totalCount } = data.allWordpressPost
-  const tagHeader = `${totalCount} post${totalCount === 1 ? '' : 's'} filed in "${tag}"`
+  const tagHeader = `${totalCount} post${
+    totalCount === 1 ? '' : 's'
+  } filed in "${tag}"`
 
   return (
-    <div>
+    <Layout>
       <Helmet title={`${tag} | ${config.title}`} />
+      <Header />
       <h1>{tagHeader}</h1>
       <PostListing postEdges={nodes} />
       <Pagination page={page} pages={pages} prev={prev} next={next} />
-    </div>
+    </Layout>
   )
 }
 

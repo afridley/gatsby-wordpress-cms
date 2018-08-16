@@ -1,25 +1,28 @@
-import Link from 'gatsby-link'
+import { Link, graphql } from 'gatsby'
 import get from 'lodash/get'
 import React, { Component } from 'react'
+import Img from 'gatsby-image'
 import Helmet from 'react-helmet'
 import Bio from '../components/Bio'
+import Header from '../components/Header'
+import Layout from '../components/Layout'
 import PostTags from '../components/PostTags'
 import { rhythm, scale } from '../utils/typography'
-import Img from 'gatsby-image'
 
 class BlogPostTemplate extends Component {
   render() {
     const post = this.props.data.wordpressPost
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
-    const { previous, next } = this.props.pathContext
+    const { previous, next } = this.props.pageContext
 
     return (
-      <div>
+      <Layout>
         <Helmet title={`${post.title} | ${siteTitle}`} />
+        <Header />
         <h1 dangerouslySetInnerHTML={{ __html: post.title }} />
         {post.featured_media !== null ? (
           <Img
-            sizes={post.featured_media.localFile.childImageSharp.sizes}
+            fluid={post.featured_media.localFile.childImageSharp.fluid}
             style={{ marginBottom: rhythm(1) }}
           />
         ) : (
@@ -77,7 +80,7 @@ class BlogPostTemplate extends Component {
             </li>
           )}
         </ul>
-      </div>
+      </Layout>
     )
   }
 }
@@ -97,8 +100,8 @@ export const pageQuery = graphql`
         source_url
         localFile {
           childImageSharp {
-            sizes(maxWidth: 750, quality: 90) {
-              ...GatsbyImageSharpSizes
+            fluid(maxWidth: 750, quality: 90) {
+              ...GatsbyImageSharpFluid
             }
           }
         }

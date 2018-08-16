@@ -5,8 +5,8 @@ const slugify = require('slug')
 const { createFilePath } = require('gatsby-source-filesystem')
 const { createPaginationPages } = require('gatsby-pagination')
 
-exports.createPages = ({ graphql, boundActionCreators }) => {
-  const { createPage } = boundActionCreators
+exports.createPages = ({ graphql, actions }) => {
+  const { createPage } = actions
 
   return new Promise((resolve, reject) => {
     const indexPage = path.resolve('./src/templates/index.js')
@@ -35,7 +35,7 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
                     source_url
                     localFile {
                       childImageSharp {
-                        sizes(maxWidth: 750, quality: 90) {
+                        fluid(maxWidth: 750, quality: 90) {
                           base64
                           aspectRatio
                           src
@@ -130,35 +130,70 @@ exports.createPages = ({ graphql, boundActionCreators }) => {
           })
 
           // Create paginated tag pages
-          const tagFormatter = tag => route => `/tag/${_.kebabCase(tag)}/${route !== 1 ? route : ''}`
-          const tagList = Array.from(tagSet)
-          tagList.forEach(tag => {
-            createPaginationPages({
-              createPage,
-              edges: tagMap.get(tag),
-              component: tagPageTemplate,
-              pathFormatter: tagFormatter(tag),
-              limit: 5,
-              context: {
-                tag,
-              },
-            })
-          })
+          // const tagFormatter = tag => route => `/tag/${_.kebabCase(tag)}/${route !== 1 ? route : ''}`
+          // const tagList = Array.from(tagSet)
+          // tagList.forEach(tag => {
+          //   createPaginationPages({
+          //     createPage,
+          //     edges: tagMap.get(tag),
+          //     component: tagPageTemplate,
+          //     pathFormatter: tagFormatter(tag),
+          //     limit: 5,
+          //     context: {
+          //       tag,
+          //     },
+          //   })
+          // })
 
           // Create paginated category pages
-          const categoryFormatter = category => route => `/category/${_.kebabCase(category)}/${route !== 1 ? route : ''}`
-          const categoryList = Array.from(categorySet)
-          categoryList.forEach(category => {
-            createPaginationPages({
-              createPage,
-              edges: categoryMap.get(category),
-              component: categoryPageTemplate,
-              pathFormatter: categoryFormatter(category),
-              limit: 5,
-              context: {
-                category,
-              },
-            })
+          // const categoryFormatter = category => route => `/category/${_.kebabCase(category)}/${route !== 1 ? route : ''}`
+          // const categoryList = Array.from(categorySet)
+          // categoryList.forEach(category => {
+          //   createPaginationPages({
+          //     createPage,
+          //     edges: categoryMap.get(category),
+          //     component: categoryPageTemplate,
+          //     pathFormatter: categoryFormatter(category),
+          //     limit: 5,
+          //     context: {
+          //       category,
+          //     },
+          //   })
+          // })
+        })
+
+        const tagList = Array.from(tagSet)
+        const categoryList = Array.from(categorySet)
+
+        tagList.forEach(tag => {
+          // Create paginated tag pages
+          const tagFormatter = tag => route =>
+            `/tag/${_.kebabCase(tag)}/${route !== 1 ? route : ''}`
+          createPaginationPages({
+            createPage,
+            edges: tagMap.get(tag),
+            component: tagPageTemplate,
+            pathFormatter: tagFormatter(tag),
+            limit: 5,
+            context: {
+              tag,
+            },
+          })
+        })
+
+        categoryList.forEach(category => {
+          // Create paginated category pages
+          const categoryFormatter = category => route =>
+            `/category/${_.kebabCase(category)}/${route !== 1 ? route : ''}`
+          createPaginationPages({
+            createPage,
+            edges: categoryMap.get(category),
+            component: categoryPageTemplate,
+            pathFormatter: categoryFormatter(category),
+            limit: 5,
+            context: {
+              category,
+            },
           })
         })
       })

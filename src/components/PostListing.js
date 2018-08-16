@@ -1,8 +1,8 @@
-import Link from 'gatsby-link'
-import kebabCase from 'lodash/kebabCase'
 import React from 'react'
-import { rhythm } from '../utils/typography'
+import { Link } from 'gatsby'
+import kebabCase from 'lodash/kebabCase'
 import Img from 'gatsby-image'
+import { rhythm } from '../utils/typography'
 
 class PostListing extends React.Component {
   getPostList() {
@@ -49,7 +49,7 @@ class PostListing extends React.Component {
             </h3>
             {post.featuredImage !== '' ? (
               <Img
-                sizes={post.featuredImage.childImageSharp.sizes}
+                fluid={post.featuredImage.childImageSharp.fluid}
                 style={{ marginBottom: rhythm(1) }}
               />
             ) : (

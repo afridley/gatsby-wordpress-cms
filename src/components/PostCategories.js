@@ -1,4 +1,4 @@
-import Link from 'gatsby-link'
+import { Link } from 'gatsby'
 import _ from 'lodash'
 import React, { Component } from 'react'
 
@@ -24,10 +24,7 @@ class PostCategories extends Component {
       <div>
         {categories &&
           categories.map(category => (
-            <Link
-              key={category}
-              to={`/category/${_.kebabCase(category)}`}
-            >
+            <Link key={category} to={`/category/${_.kebabCase(category)}`}>
               {category}
             </Link>
           ))}

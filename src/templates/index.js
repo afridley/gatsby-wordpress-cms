@@ -1,18 +1,21 @@
 import React from 'react'
 import Helmet from 'react-helmet'
 import config from '../../config/SiteConfig'
+import Header from '../components/Header'
+import Layout from '../components/Layout'
 import Pagination from '../components/Pagination'
 import PostListing from '../components/PostListing'
 
-const IndexPage = ({ data, pathContext }) => {
-  const { nodes, page, prev, next, pages, total, limit } = pathContext
+const IndexPage = ({ data, pageContext }) => {
+  const { nodes, page, prev, next, pages, total, limit } = pageContext
 
   return (
-    <div>
+    <Layout>
       <Helmet title={config.title} />
+      <Header />
       <PostListing postEdges={nodes} />
       <Pagination page={page} pages={pages} prev={prev} next={next} />
-    </div>
+    </Layout>
   )
 }
 
