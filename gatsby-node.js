@@ -28,7 +28,6 @@ exports.createPages = ({ graphql, actions }) => {
                   title
                   slug
                   date(formatString: "MMMM DD, YYYY")
-                  excerpt
                   status
                   template
                   featured_media {
