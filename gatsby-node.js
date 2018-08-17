@@ -29,7 +29,7 @@ exports.createPages = ({ graphql, actions }) => {
                   slug
                   date(formatString: "MMMM DD, YYYY")
                   status
-                  template
+                  excerpt
                   featured_media {
                     source_url
                     localFile {
@@ -127,38 +127,6 @@ exports.createPages = ({ graphql, actions }) => {
             array.push(edge)
             categoryMap.set(category.name, array)
           })
-
-          // Create paginated tag pages
-          // const tagFormatter = tag => route => `/tag/${_.kebabCase(tag)}/${route !== 1 ? route : ''}`
-          // const tagList = Array.from(tagSet)
-          // tagList.forEach(tag => {
-          //   createPaginationPages({
-          //     createPage,
-          //     edges: tagMap.get(tag),
-          //     component: tagPageTemplate,
-          //     pathFormatter: tagFormatter(tag),
-          //     limit: 5,
-          //     context: {
-          //       tag,
-          //     },
-          //   })
-          // })
-
-          // Create paginated category pages
-          // const categoryFormatter = category => route => `/category/${_.kebabCase(category)}/${route !== 1 ? route : ''}`
-          // const categoryList = Array.from(categorySet)
-          // categoryList.forEach(category => {
-          //   createPaginationPages({
-          //     createPage,
-          //     edges: categoryMap.get(category),
-          //     component: categoryPageTemplate,
-          //     pathFormatter: categoryFormatter(category),
-          //     limit: 5,
-          //     context: {
-          //       category,
-          //     },
-          //   })
-          // })
         })
 
         const tagList = Array.from(tagSet)
