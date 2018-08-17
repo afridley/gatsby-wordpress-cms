@@ -73,7 +73,7 @@ class PostListing extends React.Component {
                 <span> by {post.authorName}</span>
               </small>
             </p>
-            <p dangerouslySetInnerHTML={{ __html: post.excerpt }} />
+            <div dangerouslySetInnerHTML={{ __html: post.excerpt }} />
           </div>
         ))}
       </div>
