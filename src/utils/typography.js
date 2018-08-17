@@ -5,6 +5,10 @@ Wordpress2016.overrideThemeStyles = () => ({
   'a.gatsby-resp-image-link': {
     boxShadow: 'none',
   },
+  '.emoji': {
+    width: '1em',
+    height: '1em',
+  },
 })
 
 delete Wordpress2016.googleFonts
