@@ -40,21 +40,10 @@ class BlogPostTemplate extends Component {
         </p>
         <div dangerouslySetInnerHTML={{ __html: post.content }} />
         <div>
-          <h4>More Like This:</h4>
+          <h4 style={{ marginBottom: 0 }}>More Like This:</h4>
           <PostTags tags={post.tags} />
         </div>
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
         <Bio />
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
-
         <ul
           style={{
             display: 'flex',
