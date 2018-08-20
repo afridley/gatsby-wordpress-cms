@@ -64,11 +64,11 @@ module.exports = {
     {
       resolve: `gatsby-source-wordpress`,
       options: {
-        baseUrl: `cms-mademistakes.com.s210904.gridserver.com`,
-        protocol: `http`,
+        baseUrl: `cms.mademistakes.com`,
+        protocol: `https`,
         hostingWPCOM: false,
         useACF: true,
-        excludedRoutes: ['/*/*/comments'],
+        excludedRoutes: ['/jetpack/**', '/*/*/settings'],
       },
     },
     {
