@@ -1,8 +1,8 @@
-import React from 'react'
 import { Link } from 'gatsby'
 import kebabCase from 'lodash/kebabCase'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Img from 'gatsby-image'
-import { rhythm } from '../utils/typography'
 
 class PostListing extends React.Component {
   getPostList() {
@@ -33,31 +33,31 @@ class PostListing extends React.Component {
       <div>
         {/* Your post list here. */
         postList.map(post => (
-          <div key={post.id}>
+          <div
+            key={post.id}
+            css={{
+              marginBottom: '3em',
+            }}
+          >
             <h3
-              style={{
-                marginBottom: rhythm(1 / 2),
+              css={{
+                marginBottom: 0,
+                fontWeight: 700,
+                fontSize: '1.563em',
+                lineHeight: 1.25,
               }}
             >
               <Link
-                style={{ boxShadow: 'none' }}
+                css={{ textDecoration: 'none' }}
                 to={post.path}
                 key={post.title}
               >
                 {post.title}
               </Link>
             </h3>
-            {post.featuredImage !== '' ? (
-              <Img
-                fluid={post.featuredImage.childImageSharp.fluid}
-                style={{ marginBottom: rhythm(1) }}
-              />
-            ) : (
-              <div />
-            )}
-            <p
-              style={{
-                marginBottom: rhythm(1 / 2),
+            <div
+              css={{
+                marginBottom: '1em',
               }}
             >
               <small>
@@ -69,16 +69,28 @@ class PostListing extends React.Component {
                       {category.name}
                     </Link>
                   </span>
-                ))}
-                <span> by {post.authorName}</span>
+                ))}{' '}
+                &middot; 2 min read
               </small>
-            </p>
+            </div>
+            {post.featuredImage !== '' ? (
+              <Img
+                fluid={post.featuredImage.childImageSharp.fluid}
+                style={{ marginBottom: '1em' }}
+              />
+            ) : (
+              <div />
+            )}
             <div dangerouslySetInnerHTML={{ __html: post.excerpt }} />
           </div>
         ))}
       </div>
     )
   }
+}
+
+PostListing.propTypes = {
+  postEdges: PropTypes.node.isRequired,
 }
 
 export default PostListing

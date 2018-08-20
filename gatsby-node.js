@@ -1,7 +1,7 @@
 const _ = require('lodash')
+const moment = require('moment')
 const Promise = require('bluebird')
 const path = require('path')
-const slugify = require('slug')
 const { createFilePath } = require('gatsby-source-filesystem')
 const { createPaginationPages } = require('gatsby-pagination')
 
@@ -11,8 +11,8 @@ exports.createPages = ({ graphql, actions }) => {
   return new Promise((resolve, reject) => {
     const indexPage = path.resolve('./src/templates/index.js')
     const blogPostTemplate = path.resolve('./src/templates/blog-post.js')
-    const categoryPageTemplate = path.resolve('./src/templates/category.js')
-    const tagPageTemplate = path.resolve('./src/templates/tag.js')
+    const categoryPageTemplate = path.resolve('./src/templates/categories.js')
+    const tagPageTemplate = path.resolve('./src/templates/tags.js')
 
     resolve(
       graphql(
@@ -83,8 +83,9 @@ exports.createPages = ({ graphql, actions }) => {
             categories.push(category.name)
           })
           // Setup previous and next post navigation
-          const previous = index === posts.length - 1 ? false : posts[index + 1].node
-          const next = index === 0 ? false : posts[index - 1].node
+          const previous =
+            index === posts.length - 1 ? null : posts[index + 1].node
+          const next = index === 0 ? null : posts[index - 1].node
 
           createPage({
             path: `/${post.node.slug}/`,

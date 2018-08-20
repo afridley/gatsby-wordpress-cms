@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import PaginationLink from './PaginationLink'
 
 class Pagination extends React.Component {
@@ -7,7 +8,7 @@ class Pagination extends React.Component {
     return (
       <nav className="pagination">
         <ul
-          style={{
+          css={{
             display: 'flex',
             flexWrap: 'wrap',
             justifyContent: 'space-between',
@@ -25,7 +26,9 @@ class Pagination extends React.Component {
             </li>
           )}
 
-          <li>Page {page} of {pages}</li>
+          <li>
+            Page {page} of {pages}
+          </li>
 
           {next && (
             <li>
@@ -40,6 +43,18 @@ class Pagination extends React.Component {
       </nav>
     )
   }
+}
+
+Pagination.defaultProps = {
+  prev: null,
+  next: null,
+}
+
+Pagination.propTypes = {
+  page: PropTypes.number.isRequired,
+  pages: PropTypes.number.isRequired,
+  prev: PropTypes.string,
+  next: PropTypes.string,
 }
 
 export default Pagination

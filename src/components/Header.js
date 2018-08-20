@@ -1,30 +1,44 @@
 import React from 'react'
 import { Link } from 'gatsby'
 import config from '../../config/SiteConfig'
-import { rhythm, scale } from '../utils/typography'
+import colors from '../utils/colors'
+import fonts from '../utils/fonts'
+import presets from '../utils/presets'
 
 class Header extends React.Component {
   render() {
     return (
-      <header>
-        <h3
-          style={{
-            fontFamily: 'Montserrat, sans-serif',
-            marginTop: 0,
-            marginBottom: rhythm(-1),
+      <header
+        className="site__header"
+        css={{
+          marginTop: '1em',
+          marginBottom: '1em',
+          [presets.mdUp]: {
+            gridColumn: '3 / 5',
+            gridRow: 1,
+            alignSelf: 'center',
+          },
+          [presets.lgUp]: {
+            gridColumn: 3,
+          },
+        }}
+      >
+        <div
+          css={{
+            fontFamily: fonts.monospace,
           }}
         >
           <Link
-            style={{
-              boxShadow: 'none',
+            className="site__name"
+            css={{
+              color: '#000',
               textDecoration: 'none',
-              color: 'inherit',
             }}
-            to={'/'}
+            to="/"
           >
             {config.title}
           </Link>
-        </h3>
+        </div>
       </header>
     )
   }

@@ -1,15 +1,22 @@
-import { Link, graphql } from 'gatsby'
-import get from 'lodash/get'
-import React, { Component } from 'react'
 import Img from 'gatsby-image'
+import get from 'lodash/get'
+import { graphql } from 'gatsby'
+import React from 'react'
 import Helmet from 'react-helmet'
-import Bio from '../components/Bio'
+import PageTitle from '../components/PageTitle'
+import PageMeta from '../components/PageMeta'
+import Footer from '../components/Footer'
 import Header from '../components/Header'
 import Layout from '../components/Layout'
+import Menu from '../components/Menu'
+import PostPagination from '../components/PostPagination'
+import PostCategories from '../components/PostCategories'
 import PostTags from '../components/PostTags'
-import { rhythm, scale } from '../utils/typography'
+import colors from '../utils/colors'
+import fonts from '../utils/fonts'
+import presets from '../utils/presets'
 
-class BlogPostTemplate extends Component {
+class BlogPostTemplate extends React.Component {
   render() {
     const post = this.props.data.wordpressPost
     const siteTitle = get(this.props, 'data.site.siteMetadata.title')
@@ -17,61 +24,97 @@ class BlogPostTemplate extends Component {
 
     return (
       <Layout>
-        <Helmet>
-          <title>{`${post.title} | ${siteTitle}`}</title>
-          <meta name="robots" content="noindex, nofollow" />
-        </Helmet>
-        <Header />
-        <h1 dangerouslySetInnerHTML={{ __html: post.title }} />
-        {post.featured_media !== null ? (
-          <Img
-            fluid={post.featured_media.localFile.childImageSharp.fluid}
-            style={{ marginBottom: rhythm(1) }}
-          />
-        ) : (
-          <div />
-        )}
-        <p
-          style={{
-            ...scale(-1 / 5),
-            display: 'block',
-            marginBottom: rhythm(1),
-            marginTop: rhythm(1),
+        <div
+          className="post"
+          css={{
+            [presets.mdDown]: {
+              marginLeft: '5%',
+              marginRight: '5%',
+            },
+            [presets.mdUp]: {
+              display: 'grid',
+              gridTemplateColumns: '5% 5% 20% 10% 10% 10% 10% 20% 5% 5%',
+              gridTemplateRows: '80px 100px 35%',
+              alignItems: 'end',
+            },
           }}
         >
-          {post.date}
-        </p>
-        <div dangerouslySetInnerHTML={{ __html: post.content }} />
-        <div>
-          <h4 style={{ marginBottom: 0 }}>More Like This:</h4>
-          <PostTags tags={post.tags} />
+          <Helmet>
+            <title>{`${post.title} | ${siteTitle}`}</title>
+            <meta name="robots" content="noindex, nofollow" />
+          </Helmet>
+          <Menu />
+          <Header />
+          <PageTitle title={post.title} author={post.author.name} />
+          <PageMeta date={post.date} />
+          <div
+            className="page__cover"
+            css={{
+              position: 'relative',
+              marginTop: '10px',
+              [presets.mdUp]: {
+                gridColumn: '5 / 11',
+                gridRow: '1 / 4',
+                marginTop: 0,
+                objectFit: 'cover',
+                objectPosition: 'center center',
+                width: '100%',
+                height: '100%',
+              },
+              [presets.lgUp]: {
+                gridColumn: '4 / 11',
+              },
+              '& .gatsby-image-outer-wrapper': {
+                width: '100%',
+                height: '100%',
+              },
+            }}
+          >
+            {post.featured_media !== null ? (
+              <Img
+                fluid={post.featured_media.localFile.childImageSharp.fluid}
+                style={{
+                  width: '100%',
+                  height: '100%',
+                }}
+              />
+            ) : (
+              <div />
+            )}
+          </div>
+          <div
+            id="main"
+            className="page__main"
+            css={{
+              marginTop: '1em',
+              [presets.mdUp]: {
+                gridColumn: '3 / 7',
+                gridRow: '4 / span 1',
+                alignSelf: 'flex-start',
+              },
+              [presets.lgUp]: {
+                gridColumn: '3 / 7',
+              },
+            }}
+          >
+            <div dangerouslySetInnerHTML={{ __html: post.content }} />
+          </div>
+          <div
+            className="page__aside"
+            css={{
+              [presets.mdUp]: {
+                gridColumn: 8,
+                gridRow: 4,
+                alignSelf: 'start',
+              },
+            }}
+          >
+            <PostCategories categories={post.categories} />
+            <PostTags tags={post.tags} />
+            <PostPagination previous={previous} next={next} />
+          </div>
+          <Footer />
         </div>
-        <Bio />
-        <ul
-          style={{
-            display: 'flex',
-            flexWrap: 'wrap',
-            justifyContent: 'space-between',
-            listStyle: 'none',
-            padding: 0,
-          }}
-        >
-          {previous && (
-            <li>
-              <Link to={previous.slug} rel="prev">
-                ← {previous.title}
-              </Link>
-            </li>
-          )}
-
-          {next && (
-            <li>
-              <Link to={next.slug} rel="next">
-                {next.title} →
-              </Link>
-            </li>
-          )}
-        </ul>
       </Layout>
     )
   }
@@ -92,7 +135,7 @@ export const pageQuery = graphql`
         source_url
         localFile {
           childImageSharp {
-            fluid(maxWidth: 750, quality: 90) {
+            fluid(maxWidth: 1280, quality: 90) {
               ...GatsbyImageSharpFluid
             }
           }

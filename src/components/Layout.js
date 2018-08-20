@@ -1,16 +1,15 @@
 import React from 'react'
-import { Link, StaticQuery } from 'gatsby'
-import config from '../../config/SiteConfig'
-import { rhythm, scale } from '../utils/typography'
+import SkipLinks from './SkipLinks'
+
+require('../css/global.css')
+// require('../css/prism.css')
+
+// Load typefaces
+require('typeface-alegreya')
 
 export default ({ children }) => (
-  <div
-    style={{
-      maxWidth: rhythm(32),
-      margin: `0 auto`,
-      padding: `${rhythm(1.5)} ${rhythm(3 / 4)}`,
-    }}
-  >
+  <div>
+    <SkipLinks />
     {children}
   </div>
 )
