@@ -12,8 +12,8 @@ const IndexPage = ({ data, pageContext }) => {
   return (
     <Layout>
       <Helmet>
-        <title={config.title} />
-        <meta name="robots" content="noindex, nofollow">
+        <title>{config.title}</title>
+        <meta name="robots" content="noindex, nofollow" />
       </Helmet>
       <Header />
       <PostListing postEdges={nodes} />
