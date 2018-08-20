@@ -18,7 +18,10 @@ const Tags = ({ pageContext, data }) => {
 
   return (
     <Layout>
-      <Helmet title={`${tag} | ${config.title}`} />
+      <Helmet>
+        <title={`${tag} | ${config.title}`} />
+        <meta name="robots" content="noindex, nofollow">
+      </Helmet>
       <Header />
       <h1>{tagHeader}</h1>
       <PostListing postEdges={nodes} />

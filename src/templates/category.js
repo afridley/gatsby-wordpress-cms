@@ -18,7 +18,10 @@ const Categories = ({ data, pageContext }) => {
 
   return (
     <Layout>
-      <Helmet title={`${category} | ${config.title}`} />
+      <Helmet>
+        <title={`${category} | ${config.title}`} />
+        <meta name="robots" content="noindex, nofollow">
+      </Helmet>
       <Header />
       <h1>{categoryHeader}</h1>
       <PostListing postEdges={nodes} />

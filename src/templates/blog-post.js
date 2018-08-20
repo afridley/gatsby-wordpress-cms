@@ -17,7 +17,10 @@ class BlogPostTemplate extends Component {
 
     return (
       <Layout>
-        <Helmet title={`${post.title} | ${siteTitle}`} />
+        <Helmet>
+          <title={`${post.title} | ${siteTitle}`} />
+          <meta name="robots" content="noindex, nofollow">
+        </Helmet>
         <Header />
         <h1 dangerouslySetInnerHTML={{ __html: post.title }} />
         {post.featured_media !== null ? (
