@@ -34,8 +34,6 @@ class PageMeta extends React.Component {
           },
         }}
       >
-        <span className="page__read-time">xxx min read </span>
-
         {date ? (
           <span
             className="page__date"
