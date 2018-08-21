@@ -69,8 +69,7 @@ class PostListing extends React.Component {
                       {category.name}
                     </Link>
                   </span>
-                ))}{' '}
-                &middot; 2 min read
+                ))}
               </small>
             </div>
             {post.featuredImage !== '' ? (
