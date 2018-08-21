@@ -1,0 +1,493 @@
+$content-width: 750px;
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 100%;
+  line-height: 1.625;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 105%;
+  }
+}
+
+@media (min-width: 1024px) {
+  html {
+    font-size: 110%;
+  }
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  font-family: Georgia, serif;
+  font-kerning: normal;
+  word-wrap: break-word;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 3em 0 1em 0;
+  font-family: sans-serif;
+}
+
+blockquote {
+  margin-right: 0;
+  margin-left: 0;
+  padding: 0 1rem;
+  border-left: 0.25rem solid;
+}
+
+blockquote,
+q {
+  color: #7a7e83;
+  font-style: italic;
+}
+
+blockquote cite,
+q cite {
+  font-family: sans-serif;
+  font-size: 80%;
+  font-style: normal;
+  font-weight: 700;
+}
+
+blockquote :last-child {
+  margin-bottom: 0;
+}
+
+hr {
+  box-sizing: content-box;
+  display: block;
+  border: 0;
+  margin-top: 3em;
+  margin-bottom: 3em;
+  text-align: center;
+}
+
+hr::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 3px;
+  background-color: #000;
+}
+
+figure {
+  margin: 0;
+}
+
+p img {
+  max-width: 100%;
+}
+
+:focus {
+  outline: none;
+}
+
+:focus:not([tabindex="-1"]) {
+  outline: 4px solid #80b3ff;
+  outline-offset: 2px;
+}
+
+/* Inputs */
+
+input:required,
+textarea:required {
+  box-shadow: none;
+}
+
+/* Notices */
+
+.notice {
+  position: relative;
+  min-height: 1em;
+  margin: 1em 0;
+  padding: 1em 1.5em 1.5em;
+  border: 2px solid;
+  font-size: 0.85em;
+}
+
+.notice .custom-block-heading {
+  display: block;
+  margin-bottom: 1.25em;
+  padding-bottom: 0.25em;
+  border-bottom: 2px solid;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, Courier, monospace;
+}
+
+.notice:first-child {
+  margin-top: 0;
+}
+
+.notice:last-child {
+  margin-bottom: 0;
+}
+
+.notice p {
+  margin: 0.75em 0;
+}
+
+.notice p:first-child {
+  margin-top: 0;
+}
+
+.notice p:last-child {
+  margin-bottom: 0;
+}
+
+.notice ul {
+  text-align: left;
+  padding: 0;
+  opacity: 0.85;
+  list-style-position: inside;
+  margin: 0.5em 0 0;
+}
+
+.notice ul:first-child {
+  margin-top: 0;
+}
+
+.notice ul:last-child {
+  margin-bottom: 0;
+}
+
+.notice ul li {
+  position: relative;
+  list-style-type: none;
+  margin: 0 0 0.3em 1em;
+  padding: 0;
+}
+
+.notice ul li::before {
+  position: absolute;
+  content: '•';
+  left: -1em;
+  height: 100%;
+  vertical-align: baseline;
+}
+
+.notice ul li:last-child {
+  margin-bottom: 0;
+}
+
+.notice > :first-child {
+  margin-top: 0;
+}
+
+.notice > :last-child {
+  margin-bottom: 0;
+}
+
+/* Images */
+
+.gatsby-resp-image-link + .gatsby-resp-image-link {
+  margin-top: 1em;
+}
+
+.gatsby-resp-image-link + em {
+  display: block;
+  margin-top: 0.5em;
+  font-size: 0.8em;
+  font-style: normal;
+}
+
+.page__main p {
+  position: relative;
+}
+
+.wp-block-image {
+	width: fit-content;
+	max-width: 100%;
+
+	img {
+		max-width: 100%;
+	}
+
+	&.aligncenter {
+		display: block;
+		margin-left: auto;
+		margin-right: auto;
+		text-align: center;
+  }
+
+  &.alignfull img,
+  &.alignwide img {
+    width: 100%;
+  }
+
+  // Floats get an extra wrapping <aside> element, so the <figure> becomes a child.
+	.alignleft,
+	.alignright,
+	.aligncenter,
+	&.is-resized {
+		display: table;
+		margin: 0;
+
+		> figcaption {
+			display: table-caption;
+			caption-side: bottom;
+		}
+	}
+
+	.alignleft {
+		float: left;
+		margin-right: 1em;
+	}
+
+	.alignright {
+		float: right;
+		margin-left: 1em;
+}
+
+	&.is-resized {
+		width: min-content;
+
+		// Emulate min-content for Edge and IE11
+		display: -ms-inline-grid;
+		-ms-grid-columns: min-content;
+
+		figcaption {
+			-ms-grid-row: 2;
+		}
+
+		img {
+			max-width: none;
+		}
+	}
+}
+
+/* Cover image */
+
+.wp-block-cover-image {
+	position: relative;
+	background-size: cover;
+	background-position: center center;
+	min-height: 430px;
+	width: 100%;
+	margin: 0 0 1.5em 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	&.has-left-content {
+		justify-content: flex-start;
+
+		h2,
+		.wp-block-cover-image-text {
+			margin-left: 0;
+			text-align: left;
+		}
+	}
+
+	&.has-right-content {
+		justify-content: flex-end;
+
+		h2,
+		.wp-block-cover-image-text {
+			margin-right: 0;
+			text-align: right;
+		}
+	}
+
+	h2,
+	.wp-block-cover-image-text {
+		color: #fff;
+		font-size: 2em;
+		line-height: 1.25;
+		z-index: 1;
+		margin-bottom: 0;
+		max-width: $content-width;
+		padding: 1em;
+		text-align: center;
+
+		a,
+		a:hover,
+		a:focus,
+		a:active {
+			color: #fff;
+		}
+	}
+
+	&.has-parallax {
+		background-attachment: fixed;
+	}
+
+	&.has-background-dim::before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		bottom: 0;
+		right: 0;
+		background-color: rgba(#000, 0.5);
+	}
+
+	@for $i from 1 through 10 {
+		&.has-background-dim.has-background-dim-#{ $i * 10 }::before {
+			background-color: rgba(#000, $i * 0.1);
+		}
+	}
+
+	&.components-placeholder {
+		height: inherit;
+	}
+
+	// Apply max-width to floated items that have no intrinsic width
+	[data-align="left"] &,
+	[data-align="right"] &,
+	&.alignleft,
+	&.alignright {
+		max-width: $content-width / 2;
+		width: 100%;
+	}
+}
+
+.emoji {
+  width: 1em;
+  height: 1em;
+}
+
+/* Embeds */
+
+// Apply max-width to floated items that have no intrinsic width
+.wp-block-embed.alignleft,
+.wp-block-embed.alignright {
+	max-width: $content-width / 2;
+	width: 100%;
+}
+
+.wp-block-video {
+	video {
+		max-width: 100%;
+	}
+
+	&.aligncenter {
+		text-align: center;
+	}
+}
+
+/* Alignment */
+
+.align-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.align-left {
+  float: left;
+  margin-right: 1em;
+}
+
+.align-right {
+  float: right;
+  margin-left: 1em;
+}
+
+/* Gallery */
+
+.wp-block-gallery {
+	display: flex;
+	flex-wrap: wrap;
+	list-style-type: none;
+	padding: 0;
+	// allow gallery items to go edge to edge
+	margin: 0 -8px 0 -8px;
+
+	.blocks-gallery-image,
+	.blocks-gallery-item {
+		margin: 8px;
+		display: flex;
+		flex-grow: 1;
+		flex-direction: column;
+		justify-content: center;
+		position: relative;
+
+		figure {
+			margin: 0;
+			height: 100%;
+			display: flex;
+			align-items: flex-end;
+		}
+
+		img {
+			display: block;
+			max-width: 100%;
+			height: auto;
+		}
+
+		figcaption {
+			position: absolute;
+			width: 100%;
+			max-height: 100%;
+			overflow: auto;
+			padding: 40px 10px 5px;
+			color: #fff;
+			text-align: center;
+			background: linear-gradient(0deg, rgba(#000, 0.7) 0, rgba(#000, 0.3) 60%, transparent);
+
+			img {
+				display: inline;
+			}
+		}
+	}
+
+	// Cropped
+	&.is-cropped .blocks-gallery-image,
+	&.is-cropped .blocks-gallery-item {
+		a,
+		img {
+			flex: 1;
+			width: 100%;
+			height: 100%;
+			object-fit: cover;
+
+		}
+	}
+
+	// Responsive fallback value, 2 columns
+	& .blocks-gallery-image,
+	& .blocks-gallery-item {
+		width: calc(100% / 2 - 16px);
+	}
+
+	&.columns-1 .blocks-gallery-image,
+	&.columns-1 .blocks-gallery-item {
+		width: calc(100% / 1 - 16px);
+	}
+
+	@media (min-width: 768px) {
+		@for $i from 3 through 8 {
+			&.columns-#{ $i } .blocks-gallery-image,
+			&.columns-#{ $i } .blocks-gallery-item {
+				width: calc(100% / #{ $i } - 16px);
+			}
+		}
+	}
+
+	// Make the "Add new Gallery item" button full-width (so it always appears
+	// below other items).
+	.blocks-gallery-item {
+		&.has-add-item-button {
+			width: 100%;
+		}
+	}
+
+	// Apply max-width to floated items that have no intrinsic width
+	[data-align="left"] &,
+	[data-align="right"] &,
+	&.alignleft,
+	&.alignright {
+		max-width: $content-width / 2;
+		width: 100%;
+	}
+}

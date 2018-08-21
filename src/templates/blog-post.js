@@ -93,11 +93,20 @@ class BlogPostTemplate extends React.Component {
                 alignSelf: 'flex-start',
               },
               [presets.lgUp]: {
-                gridColumn: '3 / 7',
+                gridColumn: '3 / 9',
               },
             }}
           >
-            <div dangerouslySetInnerHTML={{ __html: post.content }} />
+            <div
+              css={{
+                '& > *': {
+                  [presets.lgUp]: {
+                    maxWidth: '60%',
+                  },
+                },
+              }}
+              dangerouslySetInnerHTML={{ __html: post.content }}
+            />
           </div>
           <div
             className="page__aside"

@@ -18,6 +18,7 @@ module.exports = {
         name: `pages`,
       },
     },
+    `gatsby-plugin-sass`,
     `gatsby-plugin-glamor`,
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
