@@ -45,7 +45,7 @@ class BlogPostTemplate extends React.Component {
           </Helmet>
           <Menu />
           <Header />
-          <PageTitle title={post.title} author={post.author.name} />
+          <PageTitle title={post.title} author={post.author} />
           <PageMeta date={post.date} />
           <div
             className="page__cover"
@@ -143,11 +143,6 @@ export const pageQuery = graphql`
       }
       author {
         name
-        avatar_urls {
-          wordpress_24
-          wordpress_48
-          wordpress_96
-        }
       }
       title
       content
