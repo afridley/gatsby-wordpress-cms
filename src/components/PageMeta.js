@@ -34,22 +34,7 @@ class PageMeta extends React.Component {
           },
         }}
       >
-        {date ? (
-          <span
-            className="page__date"
-            css={{
-              [presets.mdDown]: {
-                '&::before': {
-                  content: `' · '`,
-                },
-              },
-            }}
-          >
-            {date}
-          </span>
-        ) : (
-          <span />
-        )}
+        {date ? <span className="page__date">{date}</span> : <span />}
       </div>
     )
   }
