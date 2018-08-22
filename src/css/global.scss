@@ -207,7 +207,7 @@ textarea:required {
 
 .wp-block-image {
 	width: fit-content;
-	max-width: 100%;
+  max-width: 100%;
 
 	img {
 		max-width: 100%;
@@ -273,7 +273,8 @@ textarea:required {
 	background-size: cover;
 	background-position: center center;
 	min-height: 430px;
-	width: 100%;
+  width: 100%;
+  max-width: 100%;
 	margin: 0 0 1.5em 0;
 	display: flex;
 	justify-content: center;
@@ -397,11 +398,11 @@ textarea:required {
 
 .wp-block-gallery {
 	display: flex;
-	flex-wrap: wrap;
+  flex-wrap: wrap;
+  margin: 0 auto;
+  padding: 0;
+  max-width: 100%;
 	list-style-type: none;
-	padding: 0;
-	// allow gallery items to go edge to edge
-	margin: 0 -8px 0 -8px;
 
 	.blocks-gallery-image,
 	.blocks-gallery-item {

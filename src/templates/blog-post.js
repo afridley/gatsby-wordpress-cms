@@ -28,8 +28,11 @@ class BlogPostTemplate extends React.Component {
           className="post"
           css={{
             [presets.mdDown]: {
-              marginLeft: '5%',
-              marginRight: '5%',
+              '& > *': {
+                maxWidth: '90%',
+                marginLeft: 'auto',
+                marginRight: 'auto',
+              }
             },
             [presets.mdUp]: {
               display: 'grid',
@@ -87,19 +90,23 @@ class BlogPostTemplate extends React.Component {
             className="page__main"
             css={{
               marginTop: '1em',
+              maxWidth: '100%',
               [presets.mdUp]: {
-                gridColumn: '3 / 7',
-                gridRow: '4 / span 1',
+                gridColumn: '1 / -1',
+                // gridRow: '4 / span 1',
                 alignSelf: 'flex-start',
               },
               [presets.lgUp]: {
-                gridColumn: '3 / 9',
+                gridColumn: '1 / -1',
               },
             }}
           >
             <div
               css={{
                 '& > *': {
+                  marginLeft: 'auto',
+                  marginRight: 'auto',
+                  maxWidth: '90%',
                   [presets.lgUp]: {
                     maxWidth: '60%',
                   },
@@ -112,8 +119,8 @@ class BlogPostTemplate extends React.Component {
             className="page__aside"
             css={{
               [presets.mdUp]: {
-                gridColumn: 8,
-                gridRow: 4,
+                gridColumn: '3 / 9',
+                // gridRow: 4,
                 alignSelf: 'start',
               },
             }}
