@@ -460,7 +460,13 @@ iframe {
 				display: inline;
 			}
 		}
-	}
+  }
+
+  // Alignments
+  &.alignwide {
+    padding-left: 5%;
+    padding-right: 5%;
+  }
 
 	// Cropped
 	&.is-cropped .blocks-gallery-image,
