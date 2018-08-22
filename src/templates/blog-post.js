@@ -27,18 +27,20 @@ class BlogPostTemplate extends React.Component {
         <div
           className="post"
           css={{
-            [presets.mdDown]: {
-              '& > *': {
-                maxWidth: '90%',
-                marginLeft: 'auto',
-                marginRight: 'auto',
-              }
-            },
             [presets.mdUp]: {
               display: 'grid',
               gridTemplateColumns: '5% 5% 20% 10% 10% 10% 10% 20% 5% 5%',
               gridTemplateRows: '80px 100px 35%',
               alignItems: 'end',
+            },
+            [presets.mdDown]: {
+              '& > *:not( .page__main )': {
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                paddingLeft: '5%',
+                paddingRight: '5%',
+                maxWidth: '768px',
+              },
             },
           }}
         >
@@ -55,6 +57,9 @@ class BlogPostTemplate extends React.Component {
             css={{
               position: 'relative',
               marginTop: '10px',
+              [presets.mdDown]: {
+                maxWidth: '100%',
+              },
               [presets.mdUp]: {
                 gridColumn: '5 / 11',
                 gridRow: '1 / 4',
@@ -90,10 +95,11 @@ class BlogPostTemplate extends React.Component {
             className="page__main"
             css={{
               marginTop: '1em',
-              maxWidth: '100%',
+              // [presets.mdDown]: {
+              //   maxWidth: '100%',
+              // },
               [presets.mdUp]: {
                 gridColumn: '1 / -1',
-                // gridRow: '4 / span 1',
                 alignSelf: 'flex-start',
               },
               [presets.lgUp]: {
@@ -103,14 +109,13 @@ class BlogPostTemplate extends React.Component {
           >
             <div
               css={{
-                '& > *': {
+                '& > *:not( .alignwide ):not( .alignfull )': {
                   marginLeft: 'auto',
                   marginRight: 'auto',
-                  maxWidth: '90%',
-                  [presets.lgUp]: {
-                    maxWidth: '60%',
-                  },
-                },
+                  paddingLeft: '5%',
+                  paddingRight: '5%',
+                  maxWidth: '740px',
+                }
               }}
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
@@ -118,9 +123,11 @@ class BlogPostTemplate extends React.Component {
           <div
             className="page__aside"
             css={{
+              [presets.mdDown]: {
+                maxWidth: '90%',
+              },
               [presets.mdUp]: {
                 gridColumn: '3 / 9',
-                // gridRow: 4,
                 alignSelf: 'start',
               },
             }}
