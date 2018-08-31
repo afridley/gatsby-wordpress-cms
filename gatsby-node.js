@@ -5,6 +5,17 @@ const path = require('path')
 const { createFilePath } = require('gatsby-source-filesystem')
 const { createPaginationPages } = require('gatsby-pagination')
 
+exports.onCreateNode = ({ node, getNode, actions }) => {
+  const { createNodeField } = actions
+
+  if (node.internal.type === `wordpress__POST`) {
+    const nodePermalink = node.link
+    const permalinkRegexp = /(http[s]?:\/\/)?([^\/\s]+\/)(.*)/
+    const permalinkMatch = permalinkRegexp.exec(nodePermalink)
+    createNodeField({ node, name: `permalink`, value: permalinkMatch[3] })
+  }
+}
+
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
 
@@ -26,10 +37,14 @@ exports.createPages = ({ graphql, actions }) => {
                 node {
                   id
                   title
+                  link
                   slug
                   date(formatString: "MMMM DD, YYYY")
                   status
                   excerpt
+                  fields {
+                    permalink
+                  }
                   featured_media {
                     source_url
                     localFile {
@@ -88,11 +103,11 @@ exports.createPages = ({ graphql, actions }) => {
           const next = index === 0 ? null : posts[index - 1].node
 
           createPage({
-            path: `/${post.node.slug}/`,
+            path: `/${post.node.fields.permalink}`,
             component: blogPostTemplate,
             context: {
               id: post.node.id,
-              slug: post.node.slug,
+              slug: post.node.fields.permalink,
               previous,
               next,
             },
@@ -124,7 +139,9 @@ exports.createPages = ({ graphql, actions }) => {
           // Assoicate posts to categories
           edge.node.categories.forEach(category => {
             categorySet.add(category.name)
-            const array = categoryMap.has(category.name) ? categoryMap.get(category.name) : []
+            const array = categoryMap.has(category.name)
+              ? categoryMap.get(category.name)
+              : []
             array.push(edge)
             categoryMap.set(category.name, array)
           })

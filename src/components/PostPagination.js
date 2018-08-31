@@ -46,7 +46,7 @@ class PostPagination extends React.Component {
           {previous && (
             <li>
               <Link
-                to={previous.slug}
+                to={previous.fields.permalink}
                 rel="prev"
                 css={{
                   textDecoration: 'none',
@@ -65,7 +65,7 @@ class PostPagination extends React.Component {
           {next && (
             <li>
               <Link
-                to={next.slug}
+                to={next.fields.permalink}
                 rel="next"
                 css={{
                   textDecoration: 'none',

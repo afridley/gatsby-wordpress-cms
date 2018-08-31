@@ -60,8 +60,8 @@ module.exports = {
               return allWordpressPost.edges.map(edge => {
                 return Object.assign({}, edge.node.frontmatter, {
                   description: edge.node.excerpt,
-                  url: site.siteMetadata.siteUrl + edge.node.slug,
-                  guid: site.siteMetadata.siteUrl + edge.node.slug,
+                  url: site.siteMetadata.siteUrl + edge.node.fields.permalink,
+                  guid: site.siteMetadata.siteUrl + edge.node.fields.permalink,
                   custom_elements: [{ 'content:encoded': edge.node.content }],
                 })
               })
@@ -76,9 +76,11 @@ module.exports = {
                     node {
                       excerpt
                       content
-                      slug
                       title
                       date
+                      fields {
+                        permalink
+                      }
                     }
                   }
                 }
