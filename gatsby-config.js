@@ -9,38 +9,37 @@ module.exports = {
     description: config.description,
     siteUrl: config.siteUrl + pathPrefix,
   },
-  // pathPrefix: `/gatsby-test`,
   plugins: [
     {
-      resolve: `gatsby-source-filesystem`,
+      resolve: 'gatsby-source-filesystem',
       options: {
         path: `${__dirname}/src/pages`,
-        name: `pages`,
+        name: 'pages',
       },
     },
-    `gatsby-plugin-sass`,
-    `gatsby-plugin-glamor`,
-    `gatsby-transformer-sharp`,
-    `gatsby-plugin-sharp`,
+    'gatsby-plugin-sass',
+    'gatsby-plugin-glamor',
+    'gatsby-transformer-sharp',
+    'gatsby-plugin-sharp',
     {
-      resolve: `gatsby-plugin-google-analytics`,
+      resolve: 'gatsby-plugin-google-analytics',
       options: {
-        // trackingId: `ADD YOUR TRACKING ID HERE`,
+        // trackingId: 'ADD YOUR TRACKING ID HERE',
       },
     },
-    `gatsby-plugin-react-helmet`,
+    'gatsby-plugin-react-helmet',
     {
-      resolve: `gatsby-source-wordpress`,
+      resolve: 'gatsby-source-wordpress',
       options: {
-        baseUrl: `cms.mademistakes.com`,
-        protocol: `https`,
+        baseUrl: 'cms.mademistakes.com',
+        protocol: 'https',
         hostingWPCOM: false,
         useACF: true,
         excludedRoutes: ['/jetpack/**', '/*/*/settings'],
       },
     },
     {
-      resolve: `gatsby-plugin-feed`,
+      resolve: 'gatsby-plugin-feed',
       options: {
         query: `
           {
@@ -58,10 +57,13 @@ module.exports = {
           {
             serialize: ({ query: { site, allWordpressPost } }) => {
               return allWordpressPost.edges.map(edge => {
-                return Object.assign({}, edge.node.frontmatter, {
+                return Object.assign({}, edge.node, {
+                  title: edge.node.title,
                   description: edge.node.excerpt,
                   url: site.siteMetadata.siteUrl + edge.node.fields.permalink,
-                  guid: site.siteMetadata.siteUrl + edge.node.fields.permalink,
+                  guid: edge.node.id,
+                  author: edge.node.author.name,
+                  date: edge.node.date,
                   custom_elements: [{ 'content:encoded': edge.node.content }],
                 })
               })
@@ -74,12 +76,19 @@ module.exports = {
                 ) {
                   edges {
                     node {
+                      id
                       excerpt
                       content
                       title
-                      date
+                      date(formatString: "MMMM DD, YYYY")
                       fields {
                         permalink
+                      }
+                      author {
+                        name
+                      }
+                      featured_media {
+                        source_url
                       }
                     }
                   }
