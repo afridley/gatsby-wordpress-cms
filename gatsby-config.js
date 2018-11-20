@@ -34,8 +34,8 @@ module.exports = {
         baseUrl: 'cms.mademistakes.com',
         protocol: 'https',
         hostingWPCOM: false,
-        useACF: true,
-        excludedRoutes: ['/jetpack/**', '/*/*/settings'],
+        useACF: false,
+        excludedRoutes: ['/jetpack/**', '/*/*/settings', '/postlight/**'],
       },
     },
     {
