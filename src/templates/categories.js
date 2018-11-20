@@ -106,7 +106,7 @@ export const pageQuery = graphql`
     }
     allWordpressPost(
       sort: { fields: [date], order: DESC }
-      filter: { categories: { name: { eq: $category } } }
+      filter: { categories: { elemMatch: { name: { eq: $category } } } }
     ) {
       totalCount
       edges {
